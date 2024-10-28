@@ -1,0 +1,13 @@
+{
+  "name": "youtube-mp3-downloader-api",
+  "version": "1.0.0",
+  "description": "A YouTube MP3 downloader API using RapidAPI",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.5.0"
+  }
+}
