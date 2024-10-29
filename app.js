@@ -1,9 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const PORT = 3000; // Or any port you prefer
+const PORT = process.env.PORT || 3000;
 
-// Endpoint to download YouTube video as MP3
 app.get('/video', async (req, res) => {
   const videoUrl = req.query.link;
   if (!videoUrl) {
@@ -18,13 +17,13 @@ app.get('/video', async (req, res) => {
         params: { url: videoUrl },
         headers: {
           'x-rapidapi-host': 'youtube-mp3-downloader2.p.rapidapi.com',
-          'x-rapidapi-key': 'f15a34ae8emsh6cc35cda357f7d7p195362jsn8e196b76a1a7', // Replace with your key
+          'x-rapidapi-key': process.env.RAPIDAPI_KEY, // Use environment variable for the API key
         },
       }
     );
 
-    // Send the result back to the client
-    res.json(response.data);
+    // Send only the download link from the response
+    res.send(response.data.dlink);
   } catch (error) {
     console.error('Error fetching video:', error.message);
     res.status(500).send('Failed to download video.');
