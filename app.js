@@ -13,12 +13,12 @@ app.get('/video', async (req, res) => {
   try {
     // Call the RapidAPI YouTube MP3 Downloader API
     const response = await axios.get(
-      `https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/long_video.php`,
+      'https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/long_video.php',
       {
         params: { url: videoUrl },
         headers: {
           'x-rapidapi-host': 'youtube-mp3-downloader2.p.rapidapi.com',
-          'x-rapidapi-key: df5adca759msh361dac7924c6d3ep1a755cjsnb41f753bb38d', // Replace with your key
+          'x-rapidapi-key': 'df5adca759msh361dac7924c6d3ep1a755cjsnb41f753bb38d', // Replace with your key
         },
       }
     );
