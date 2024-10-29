@@ -17,16 +17,27 @@ app.get('/video', async (req, res) => {
         params: { url: videoUrl },
         headers: {
           'x-rapidapi-host': 'youtube-mp3-downloader2.p.rapidapi.com',
-          'x-rapidapi-key': process.env.RAPIDAPI_KEY, // Use environment variable for the API key
+          'x-rapidapi-key': process.env.RAPIDAPI_KEY,
         },
       }
     );
 
-    // Send only the download link from the response
-    res.send(response.data.dlink);
+    // Check if the response contains the 'dlink' field
+    if (response.data && response.data.dlink) {
+      res.send(response.data.dlink);
+    } else {
+      res.status(500).send('Failed to retrieve download link.');
+    }
   } catch (error) {
     console.error('Error fetching video:', error.message);
-    res.status(500).send('Failed to download video.');
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Status:', error.response.status);
+      console.error('Headers:', error.response.headers);
+      res.status(500).send(`Error: ${error.response.data.message || 'Failed to download video.'}`);
+    } else {
+      res.status(500).send('Failed to download video.');
+    }
   }
 });
 
