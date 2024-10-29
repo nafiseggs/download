@@ -18,7 +18,7 @@ app.get('/video', async (req, res) => {
         params: { url: videoUrl },
         headers: {
           'x-rapidapi-host': 'youtube-mp3-downloader2.p.rapidapi.com',
-          'x-rapidapi-key': 'f15a34ae8emsh6cc35cda357f7d7p195362jsn8e196b76a1a7', // Replace with your key
+          'x-rapidapi-key: df5adca759msh361dac7924c6d3ep1a755cjsnb41f753bb38d', // Replace with your key
         },
       }
     );
