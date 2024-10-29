@@ -1,8 +1,9 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000; // Or any port you prefer
 
+// Endpoint to download YouTube video as MP3
 app.get('/video', async (req, res) => {
   const videoUrl = req.query.link;
   if (!videoUrl) {
@@ -17,27 +18,16 @@ app.get('/video', async (req, res) => {
         params: { url: videoUrl },
         headers: {
           'x-rapidapi-host': 'youtube-mp3-downloader2.p.rapidapi.com',
-          'x-rapidapi-key': f15a34ae8emsh6cc35cda357f7d7p195362jsn8e196b76a1a7,
+          'x-rapidapi-key': 'f15a34ae8emsh6cc35cda357f7d7p195362jsn8e196b76a1a7', // Replace with your key
         },
       }
     );
 
-    // Check if the response contains the 'dlink' field
-    if (response.data && response.data.dlink) {
-      res.send(response.data.dlink);
-    } else {
-      res.status(500).send('Failed to retrieve download link.');
-    }
+    // Send the result back to the client
+    res.json(response.data);
   } catch (error) {
     console.error('Error fetching video:', error.message);
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Status:', error.response.status);
-      console.error('Headers:', error.response.headers);
-      res.status(500).send(`Error: ${error.response.data.message || 'Failed to download video.'}`);
-    } else {
-      res.status(500).send('Failed to download video.');
-    }
+    res.status(500).send('Failed to download video.');
   }
 });
 
