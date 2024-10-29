@@ -5,26 +5,26 @@ const PORT = 3000; // Or any port you prefer
 
 // Endpoint to download YouTube video as MP3
 app.get('/video', async (req, res) => {
-  const videoUrl = req.query.link;
-  if (!videoUrl) {
-    return res.status(400).send('Please provide a video URL.');
+  const videoId = req.query.id;
+  if (!videoId) {
+    return res.status(400).send('Please provide a video ID.');
   }
 
   try {
-    // Call the RapidAPI YouTube MP3 Downloader API
+    // Call the updated RapidAPI YouTube MP3 Downloader API
     const response = await axios.get(
-      'https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/long_video.php',
+      `https://youtube-mp36.p.rapidapi.com/dl`,
       {
-        params: { url: videoUrl },
+        params: { id: videoId },
         headers: {
-          'x-rapidapi-host': 'youtube-mp3-downloader2.p.rapidapi.com',
+          'x-rapidapi-host': 'youtube-mp36.p.rapidapi.com',
           'x-rapidapi-key': 'df5adca759msh361dac7924c6d3ep1a755cjsnb41f753bb38d', // Replace with your key
         },
       }
     );
 
     // Extract the download link
-    const downloadLink = response.data.dlink;
+    const downloadLink = response.data.link;
 
     // Redirect to the download link
     res.redirect(downloadLink);
