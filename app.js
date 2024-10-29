@@ -23,8 +23,11 @@ app.get('/video', async (req, res) => {
       }
     );
 
-    // Send the result back to the client
-    res.json(response.data);
+    // Extract only the download link
+    const downloadLink = response.data.dlink;
+
+    // Send the download link back to the client
+    res.send(downloadLink);
   } catch (error) {
     console.error('Error fetching video:', error.message);
     res.status(500).send('Failed to download video.');
